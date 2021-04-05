@@ -26,10 +26,12 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	coap "github.com/moroen/gocoap/v3"
+	coap "github.com/moroen/gocoap/v4"
 )
 
 var _debugLevel int
+
+var _version = "0.0.1"
 
 // Python Functions
 
@@ -171,22 +173,10 @@ func coapCloseConnection() C.int {
 	return 0
 }
 
-func stripCtlFromUTF8(str string) string {
-	return strings.Map(func(r rune) rune {
-		if r >= 32 && r != 127 {
-			return r
-		}
-		return -1
-	}, str)
-}
-
-func stripCtlAndExtFromUTF8(str string) string {
-	return strings.Map(func(r rune) rune {
-		if r >= 32 && r < 127 {
-			return r
-		}
-		return -1
-	}, str)
+//export coapVersion
+func coapVersion() *C.char {
+	cstr := C.CString(_version)
+	return cstr
 }
 
 func validateResponse(response []byte) string {
