@@ -31,7 +31,7 @@ import (
 
 var _debugLevel int
 
-var _version = "0.0.1"
+var _version = "0.0.2"
 
 // Python Functions
 
